@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class Car {
+    public static final int NO_KILOMETERS = 0;
     private final CarColor color;
     private final CarMake make;
     private final BigDecimal fuelConsumption;
@@ -59,15 +60,15 @@ public class Car {
     }
 
     public void drive(int kilometers) {
-        if(kilometers != 0){
-            var fuelc = BigDecimal.valueOf(kilometers).divide(BigDecimal.valueOf(100),
+        if(kilometers != NO_KILOMETERS){
+            var consumedFuel = BigDecimal.valueOf(kilometers).divide(BigDecimal.valueOf(100),
                     RoundingMode.CEILING).multiply(fuelConsumption);
-            if (fuelc.compareTo(fuelLevel) > 0){
-                throw new NoFuelException();
+            if (consumedFuel.compareTo(fuelLevel) > 0){
+                throw new NoFuelException("Fuel in tank is empty!");
             }
             dailyOdometer = kilometers;
             odometer += kilometers;
-            fuelLevel = fuelLevel.subtract(fuelc);
+            fuelLevel = fuelLevel.subtract(consumedFuel);
         }
     }
 
