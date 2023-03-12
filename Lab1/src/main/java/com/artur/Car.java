@@ -82,4 +82,8 @@ public class Car {
         }
     }
 
+    public void resetDailyOdometer(){
+        this.dailyOdometer = 0;
+    }
+
 }

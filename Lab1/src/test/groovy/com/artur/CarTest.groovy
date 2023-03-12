@@ -135,4 +135,18 @@ class CarTest extends Specification {
         1000000    | 1              | 1
         3050       | 3050           | 53
     }
+
+    def "should restart daily odometer"() {
+        given:
+        var car = new Car(CarColor.BLUE, CarMake.AUDI, 10.0, 50)
+        car.refuel(BigDecimal.valueOf(50))
+        car.drive(100)
+
+        when:
+        car.resetDailyOdometer()
+
+        then:
+        car.dailyOdometer == 0
+        car.odometer == 100
+    }
 }
