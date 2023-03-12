@@ -9,10 +9,10 @@ class CarTest extends Specification {
         var car = new Car(CarColor.RED, CarMake.LEXUS, 11.6, 55)
 
         then:
-        car.getColor() == CarColor.RED
-        car.getMake() == CarMake.LEXUS
-        car.getFuelConsumption() == 11.6
-        car.getTankCapacity() == 55
+        car.color == CarColor.RED
+        car.make == CarMake.LEXUS
+        car.fuelConsumption == 11.6
+        car.tankCapacity == 55
     }
 
     def "should refuel car"() {
@@ -84,6 +84,7 @@ class CarTest extends Specification {
         10.0            | 11           | 11        | 100        | 0                    | 100                | 100            | 1
         12.6            | 55           | 55        | 100        | 200                  | 200                | 300            | 17.2
         8.4             | 100          | 100       | 200        | 300                  | 300                | 500            | 58.0
+        10.0            | 10           | 10        | 100        | 0                    | 100                | 100            | 0
     }
 
     def "should car not drive when fuel in tank capacity is empty"() {
@@ -96,5 +97,42 @@ class CarTest extends Specification {
 
         then:
         thrown(NoFuelException)
+    }
+
+    def "should car restart daily odometer when it extends size"() {
+        given:
+        var car = new Car(CarColor.BLUE, CarMake.AUDI, 5.0, 50)
+        car.refuel(BigDecimal.valueOf(50))
+
+        when:
+        car.drive(kilometers)
+
+        then:
+        car.dailyOdometer == dailyOdometerExpect
+
+        where:
+        kilometers | dailyOdometerExpect
+        999        | 999
+        1000       | 1
+    }
+
+    def "should car restart odometer when it extends size"() {
+        given:
+        var car = new Car(CarColor.BLUE, CarMake.AUDI, 0.1, 1000)
+        car.refuel(BigDecimal.valueOf(1000))
+
+        when:
+        car.drive(kilometers)
+
+        then:
+
+        car.odometer == odometerExpect
+        car.dailyOdometer == dailyOdometerExpect
+
+        where:
+        kilometers | odometerExpect | dailyOdometerExpect
+        999999     | 999999         | 999
+        1000000    | 1              | 1
+        3050       | 3050           | 53
     }
 }
