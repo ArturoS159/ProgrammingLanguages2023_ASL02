@@ -5,7 +5,7 @@ import spock.lang.Specification
 class CarTest extends Specification {
 
     def "should create car with correct parameters"() {
-        when:
+        given:
         var car = new Car(CarColor.RED, CarMake.LEXUS, 11.6, 55)
 
         then:

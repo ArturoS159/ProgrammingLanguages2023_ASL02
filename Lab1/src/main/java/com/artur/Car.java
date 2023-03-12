@@ -1,15 +1,17 @@
 package com.artur;
 
-public class Car {
-    private CarColor color;
-    private CarMake make;
-    private double fuelConsumption;
-    private int tankCapacity;
+import java.math.BigDecimal;
 
-    public Car(CarColor colorr, CarMake make, double fuel, int tankCapacity) {
-        this.color = colorr;
+public class Car {
+    private final CarColor color;
+    private final CarMake make;
+    private final BigDecimal fuelConsumption;
+    private final int tankCapacity;
+
+    public Car(CarColor color, CarMake make, BigDecimal fuelConsumption, int tankCapacity) {
+        this.color = color;
         this.make = make;
-        this.fuelConsumption = fuel;
+        this.fuelConsumption = fuelConsumption;
         this.tankCapacity = tankCapacity;
     }
 
@@ -21,7 +23,7 @@ public class Car {
         return make;
     }
 
-    public double getFuelConsumption() {
+    public BigDecimal getFuelConsumption() {
         return fuelConsumption;
     }
 
