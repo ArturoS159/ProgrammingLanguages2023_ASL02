@@ -61,4 +61,40 @@ class CarTest extends Specification {
         then:
         thrown(RefuelException)
     }
+
+    def "should car drive and consume fuel"() {
+        given:
+        var car = new Car(CarColor.BLUE, CarMake.AUDI, fuelConsumption, tankCapacity)
+        car.refuel(BigDecimal.valueOf(fuelInCar))
+
+        when:
+        car.drive(kilometers)
+        car.drive(additionalKilometers)
+
+        then:
+        with(car) {
+            dailyOdometer == dailyOdometrExpect
+            odometer == odometerExpect
+            fuelLevel == fuelLevelExpect
+        }
+
+        where:
+        fuelConsumption | tankCapacity | fuelInCar | kilometers | additionalKilometers | dailyOdometrExpect | odometerExpect | fuelLevelExpect
+        15.2            | 50           | 50        | 100        | 0                    | 100                | 100            | 34.8
+        10.0            | 11           | 11        | 100        | 0                    | 100                | 100            | 1
+        12.6            | 55           | 55        | 100        | 200                  | 200                | 300            | 17.2
+        8.4             | 100          | 100       | 200        | 300                  | 300                | 500            | 58.0
+    }
+
+    def "should car not drive when fuel in tank capacity is empty"() {
+        given:
+        var car = new Car(CarColor.BLUE, CarMake.AUDI, 5.0, 5)
+        car.refuel(BigDecimal.valueOf(5))
+
+        when:
+        car.drive(101)
+
+        then:
+        thrown(NoFuelException)
+    }
 }
