@@ -1,6 +1,7 @@
 package com.artur;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class Car {
     private final CarColor color;
@@ -56,4 +57,18 @@ public class Car {
         }
         fuelLevel = refueledCar;
     }
+
+    public void drive(int kilometers) {
+        if(kilometers != 0){
+            var fuelc = BigDecimal.valueOf(kilometers).divide(BigDecimal.valueOf(100),
+                    RoundingMode.CEILING).multiply(fuelConsumption);
+            if (fuelc.compareTo(fuelLevel) > 0){
+                throw new NoFuelException();
+            }
+            dailyOdometer = kilometers;
+            odometer += kilometers;
+            fuelLevel = fuelLevel.subtract(fuelc);
+        }
+    }
+
 }
