@@ -1,6 +1,7 @@
 package com.artur;
 
 public class RefuelException extends RuntimeException {
-    public RefuelException() {
+    public RefuelException(String message) {
+        super(message);
     }
 }

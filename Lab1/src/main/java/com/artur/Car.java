@@ -50,9 +50,9 @@ public class Car {
     public void refuel(BigDecimal fuel) {
         BigDecimal refueledCar = fuelLevel.add(fuel);
         if (refueledCar.compareTo(BigDecimal.ZERO) < 0) {
-            throw new RefuelException();
+            throw new RefuelException("Fuel level cannot be negative!");
         } else if (refueledCar.compareTo(BigDecimal.valueOf(tankCapacity)) > 0) {
-            throw new RefuelException();
+            throw new RefuelException("Fuel level cannot more then fuelLevel: " + fuelLevel);
         }
         fuelLevel = refueledCar;
     }
