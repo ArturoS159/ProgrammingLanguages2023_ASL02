@@ -62,7 +62,7 @@ class CarTest extends Specification {
         thrown(RefuelException)
     }
 
-    def "should car drive and consume fuel"() {
+    def "should car properly calculate fuel consumption and fuel level"() {
         given:
         var car = new Car(CarColor.BLUE, CarMake.AUDI, fuelConsumption, tankCapacity)
         car.refuel(BigDecimal.valueOf(fuelInCar))
