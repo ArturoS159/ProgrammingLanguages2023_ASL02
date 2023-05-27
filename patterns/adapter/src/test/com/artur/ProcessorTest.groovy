@@ -4,13 +4,11 @@ import com.artur.thirdparty.boss.BossDelayAdapter
 import com.artur.thirdparty.boss.Delay
 import com.artur.thirdparty.ibanez.Echolizer
 import com.artur.thirdparty.ibanez.IbanezEchoizerAdapter
-import org.junit.Test
 import spock.lang.Specification
 
 class ProcessorTest extends Specification {
 
-    @Test
-    void "should apply distortion effect"() {
+    def "should apply distortion effect"() {
         given:
         Processor processor = new Processor(new Soundtrack("Lalala"))
         processor.addEffect(new Distortion())
@@ -22,8 +20,7 @@ class ProcessorTest extends Specification {
         soundtrack.sound == "Lalala Adding distortion as in Master of Puppets"
     }
 
-    @Test
-    void "should apply boss effect"() {
+    def "should apply boss effect"() {
         given:
         Delay delay = new Delay()
         delay.initialize()
@@ -37,8 +34,7 @@ class ProcessorTest extends Specification {
         soundtrack.sound == "Lalala Adding delay as in Run Like Hell"
     }
 
-    @Test
-    void "should apply echolizer effect"() {
+    def "should apply echolizer effect"() {
         given:
         Processor processor = new Processor(new Soundtrack("Lalala"))
         processor.addEffect(new IbanezEchoizerAdapter(new Echolizer(5)))
@@ -50,8 +46,7 @@ class ProcessorTest extends Specification {
         soundtrack.sound == "Lalala Adding echo 1 Adding echo 2 Adding echo 3 Adding echo 4 Adding echo 5"
     }
 
-    @Test
-    void "should mix thirdparty effects"() {
+    def "should mix thirdparty effects"() {
         given:
         Delay delay = new Delay()
         delay.initialize()
